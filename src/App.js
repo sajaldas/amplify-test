@@ -1,32 +1,44 @@
-import React from 'react';
+import React, { Component } from 'react'
 import logo from './logo.svg';
 import './App.css';
 
 import Amplify from 'aws-amplify'
 import awsconfig from './aws-exports'
-import {withAuthenticator} from 'aws-amplify-react' 
+import { withAuthenticator } from 'aws-amplify-react'
+
+import SignUp from './SignUp'
+import SignIn from './SignIn'
 
 Amplify.configure(awsconfig)
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      showLoginForm: false
+    }
+  }
+
+  handleFormToggle = () => {
+    //const {toggleState} = this.state.showLoginForm;
+    //console.log('toggleState = ', this.state.showLoginForm);
+    this.setState({showLoginForm: !this.state.showLoginForm})
+  }
+
+  render() {
+    return (
+      <div className="App">
+        {
+          (this.state.showLoginForm) ? <SignIn /> : <SignUp />
+        }                
+        <div className="toggleform">
+          <a href="#" onClick={this.handleFormToggle}>{(this.state.showLoginForm) ? 'No Account, Sign Up' : 'Have an accout, Sign In'}</a>
+        </div>
+      </div>
+    );
+  }
+
 }
 
-export default withAuthenticator(App, true);
+export default App;
