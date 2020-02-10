@@ -6,8 +6,9 @@ class SignIn extends Component {
         super(props);
         this.state = {
             email: '',
-            password: '',            
+            password: '',
             signedIn: false,
+            errorMsg: ''
         }
     }
 
@@ -35,7 +36,14 @@ class SignIn extends Component {
                     this.setState({ signedIn: true })
                 }
             })
-            .catch(err => console.log(err))
+            .catch((err) => {
+                console.log(err)
+                if (err.message) {
+                    console.log('error');
+                    this.setState({ errorMsg: err.message })
+                    //console.log(this.state.errorMsg)
+                }
+            })
     }
 
     render() {
@@ -43,17 +51,20 @@ class SignIn extends Component {
 
         if (signedIn) {
             return (
-                <div>You are signed in!</div>
+                <div className="signupform">
+                    <form>
+                        <div>You are signed in!</div>
+                    </form>
+                </div>
             )
         }
         else {
             return (
-                <div className="signupform">                   
+                <div className="signupform">
                     <form>
-                        {/* <div className="formrow">
-                        <label>Username</label>
-                        <input type="text" id="username" onChange={this.handleChange} />
-                    </div> */}
+                        <div className="formrow">
+                            <div className="msg">{this.state.errorMsg}</div>
+                        </div>
                         <div className="formrow">
                             <label>Email</label>
                             <input type="email" id="email" onChange={this.handleChange} />
@@ -62,10 +73,6 @@ class SignIn extends Component {
                             <label>Password</label>
                             <input type="password" id="password" onChange={this.handleChange} />
                         </div>
-                        {/* <div className="formrow">
-                        <label>Phone</label>
-                        <input type="text" id="phone" onChange={this.handleChange} />
-                    </div> */}
                         <div className="formrow">
                             <label> </label>
                             <input type="button" id="btnsubmit" value="Sign In" onClick={() => this.handleFormSubmit()} />

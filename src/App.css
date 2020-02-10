@@ -14,6 +14,7 @@
 .formrow { display: block; margin-bottom: 15px; text-align: left;}
 .formrow label { text-align: left; display: inline-block; width: 30%; }
 .formrow input[type="text"], .formrow input[type="email"], .formrow input[type="password"] { min-width: 230px; padding: 8px 5px; border: 1px solid #ddd; }
+.msg {color: #f00;}
 
 
 @keyframes App-logo-spin {
